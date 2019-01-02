@@ -1,0 +1,8 @@
+---
+# Ansible playbook for asterisk deployment
+
+- hosts: asterisk
+  become: true
+  roles:
+    - asterisk
+
