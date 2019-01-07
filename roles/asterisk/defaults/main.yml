@@ -1,0 +1,15 @@
+---
+asterisk_group: asterisk
+asterisk_user: asterisk
+
+asterisk_version: 16.1.1
+asterisk_target: asterisk-{{asterisk_version}}
+
+asterisk_download_src: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-{{asterisk_version}}.tar.gz
+asterisk_download_dst: /usr/local/src
+
+asterisk_source_extract_directory: "{{asterisk_download_dst}}"
+asterisk_source_directory: "{{asterisk_download_dst}}/{{asterisk_target}}"
+asterisk_source_file: "{{asterisk_download_dst}}/{{asterisk_target}}.tar.gz"
+
+asterisk_nofile_limit: 1048576
