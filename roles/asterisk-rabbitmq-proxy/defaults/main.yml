@@ -1,0 +1,4 @@
+---
+go_path: /root/go
+
+rabbitmq_addr: amqp://192.168.30.111

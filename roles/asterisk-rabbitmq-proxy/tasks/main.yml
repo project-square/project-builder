@@ -1,0 +1,28 @@
+---
+- name: Install dependencies
+  apt: name={{item}} state=present update_cache=yes install_recommends=no
+  with_items:
+    - git
+
+- name: Install asterisk-rabbitmq-proxy
+  command:
+  args:
+    argv:
+      - /usr/local/go/bin/go
+      - get
+      - -u
+      - github.com/project-square/asterisk-rabbitmq-proxy/cmd/asterisk-rabbitmq-proxy
+  environment:
+    GOPATH: "{{go_path}}"
+
+- name: Copy daemon service
+  template:
+    src: asterisk-rabbitmq-proxy.service.j2
+    dest: /etc/systemd/system/asterisk-rabbitmq-proxy.service
+
+- name: Start asterisk-rabbitmq-proxy
+  systemd:
+    name: asterisk-rabbitmq-proxy
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
