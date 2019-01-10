@@ -1,0 +1,13 @@
+[Unit]
+Description=Asterisk rabbitmq proxy
+After=network.target
+
+[Service]
+User=root
+ExecStart={{go_path}}/bin/asterisk-rabbitmq-proxy -rabbit_addr {{rabbitmq_addr}}
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=asterisk-rabbitmq-proxy.service

@@ -4,6 +4,7 @@
 - hosts: asterisk
   become: true
   roles:
-    # - asterisk
+    - go
+    - asterisk
     - asterisk-rabbitmq-proxy
 
