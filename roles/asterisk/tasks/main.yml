@@ -8,10 +8,11 @@
 - name: Install asterisk dependencies
   apt: name={{item}} state=present update_cache=yes install_recommends=no
   with_items:
+    - gcc
+    - build-essential
     - curl
     - make
     - python
-    - gcc
     - libcurl4-openssl-dev
     - libssl-dev
     - flex

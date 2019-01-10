@@ -1,0 +1,22 @@
+---
+- name: Install dependencies
+  apt: name={{item}} state=present update_cache=yes install_recommends=no
+  with_items:
+    - golang
+    - git
+
+- name: Add 
+
+- name: Export gopath for permenent
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: '^GOPATH'
+    line: 'GOPATH=/usr/local/go'
+
+- name: Export GOPATH for this session
+  environment:
+    GOPATH: /usr/local/go
+
+- name: Install asterisk-rabbitmq-proxy
+  command: go get -u github.com/project-square/asterisk-rabbitmq-proxy/cmd/asterisk-rabbitmq-proxy
