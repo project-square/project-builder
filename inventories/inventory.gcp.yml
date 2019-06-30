@@ -1,0 +1,16 @@
+---
+plugin: gcp_compute
+projects:
+  - k8s-test-01-239423
+keyd_groups:
+  - zone
+filters: []
+auth_kind: serviceaccount
+service_account_file: /home/pchero/k8s-test-01-eadb65cfe297.json
+hostnames:
+  - name
+groups:
+  kamailios: "'-kamailio-' in name"
+  asterisks: "'-asterisk-' in name"
+
+

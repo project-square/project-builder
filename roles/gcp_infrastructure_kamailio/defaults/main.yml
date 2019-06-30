@@ -1,0 +1,22 @@
+---
+# project 
+gcp_project: k8s-test-01-239423
+gcp_cred_kind: serviceaccount
+gcp_cred_file: /home/pchero/k8s-test-01-eadb65cfe297.json
+
+# network
+gcp_network_name: "default"
+gcp_network_subnet_name: default
+
+# instance
+gcp_instance_name: default
+gcp_instance_machine_type: n1-standard-1
+gcp_instance_image: debian-9
+gcp_instance_zone: europe-west4-a
+
+# disk
+gcp_disk_size: 10
+gcp_disk_image: projects/debian-cloud/global/images/debian-9-stretch-v20190618
+
+# base name
+gcp_instance_kamailio_base_name: "instance-{{ gcp_instance_zone }}-kamailio"

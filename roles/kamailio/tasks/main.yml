@@ -1,0 +1,75 @@
+---
+- name: Create asterisk group
+  group: name={{asterisk_group}} state=present
+
+- name: Add asterisk user
+  user: name={{asterisk_user}} comment='Asterisk process user' shell=/sbin/nologin group={{asterisk_group}}
+
+- name: Install asterisk dependencies
+  apt: name={{item}} state=present update_cache=yes install_recommends=no
+  with_items:
+    - gcc
+    - build-essential
+    - curl
+    - make
+    - python
+    - libcurl4-openssl-dev
+    - libssl-dev
+    - flex
+    - bison
+    - libncurses5-dev
+    - uuid-dev
+    - libedit-dev
+    - libxml2-dev
+    - libsqlite3-dev
+
+- name: Remove asterisk download file
+  file: path={{asterisk_source_file}} state=absent
+
+- name: Download asterisk
+  get_url: url={{asterisk_download_src}} dest={{asterisk_download_dst}}
+  register: asterisk_download
+
+- name: Remove current asterisk source directory
+  file: path={{asterisk_source_directory}} state=absent
+  when: asterisk_download is changed
+
+- name: Unarchive asterisk
+  unarchive: src={{asterisk_source_file}} dest={{asterisk_download_dst}} copy=no
+  when: asterisk_download is changed
+
+- name: Build asterisk
+  command: "{{item}} chdir={{asterisk_source_directory}}"
+  with_items:
+    - ./configure --with-jansson-bundled
+    - make
+    - make install
+
+- name: Copy the configuration file
+  copy: src={{item}} dest=/etc/asterisk owner={{asterisk_user}} group={{asterisk_group}} mode=0644
+  with_fileglob:
+    - configuration/*
+
+- name: Set ownership
+  file: path={{item}} owner={{asterisk_user}} group={{asterisk_group}} state=directory recurse=yes
+  with_items:
+    - /usr/lib/asterisk
+    - /var/lib/asterisk
+    - /var/spool/asterisk
+    - /var/log/asterisk
+    - /var/run/asterisk
+    - /etc/asterisk
+
+- name: Set ownership for binary
+  file: path={{item}} owner={{asterisk_user}} group={{asterisk_group}}
+  with_items:
+    - /usr/sbin/asterisk
+
+- name: Copy the service file
+  template: src={{item.src}} dest={{item.dest}} owner={{asterisk_user}} group={{asterisk_group}} mode=0644 backup=yes
+  with_items:
+    - {src: asterisk.service.j2, dest: /lib/systemd/system/asterisk.service}
+  notify: restart asterisk
+
+- name: Enable asterisk startup
+  systemd: name=asterisk state=started enabled=yes daemon_reload=yes

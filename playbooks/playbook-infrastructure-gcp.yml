@@ -1,0 +1,10 @@
+---
+# Ansible playbook for asterisk deployment
+
+- name: create GCP instance for kamailio
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - gcp_infrastructure_kamailio
+
