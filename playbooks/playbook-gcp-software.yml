@@ -1,0 +1,10 @@
+---
+# Ansible playbook for asterisk deployment
+
+- name: installing kamailio
+  hosts: kamailios
+  connection: local
+  gather_facts: no
+  become: true
+  roles:
+    - kamailio

@@ -1,8 +1,4 @@
 ---
-# - import_tasks: create.yml
-#   tags:
-#     - create
-
 - name: Create instances for kamailio
   include: create.yml gcp_instance_kamailio_name={{item}} 
   with_items:
@@ -10,31 +6,6 @@
     - "{{ gcp_instance_kamailio_base_name }}-02"
   tags:
     - create
-#   include_tasks: create.yml
-
-
-
-# - name: Create instances for kamailio
-#   loop:
-#     - import_tasks: create.yml
-#   with_items:
-#     - "{{ gcp_instance_kamailio_base_name }}-01"
-#     - "{{ gcp_instance_kamailio_base_name }}-02"
-#   loop_control:
-#     loop_var: gcp_instance_kamailio_name
-#   tags:
-#     - create
-# #   include_tasks: create.yml
-
-# - name: Create instances for kamailio
-#   with_items:
-#     - "{{ gcp_instance_kamailio_name }}-01"
-#     - "{{ gcp_instance_kamailio_name }}-02"
-#   include_tasks:
-#   name: myrole
-#   vars:
-#   thing: "{{ item }}"
-
 
 - import_tasks: delete.yml
   tags:
