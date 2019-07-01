@@ -1,13 +1,14 @@
 module "kamailio-europe-west4-a" {
-    source = "../../module-common"
-    vms_count = "1"
-    region = "europe-west4"
-    zone = "europe-west4-a"
-    vm_type = "n1-standard-1"
+    source      = "../module-common/virtual-machines"
 
-    tags = "${local.tags_kamailio}"
-    labels = "${local.labels_kamailio}"
+    name        = "instance-kamailio"
+    vms_count   = "2"
+    region      = "europe-west4"
+    zone        = "europe-west4-a"
+    vm_type     = "n1-standard-1"
 
+    tags    = "${local.tags_kamailio}"
+    labels  = "${local.labels_kamailio}"
 }
 
 locals {

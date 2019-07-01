@@ -5,6 +5,7 @@ resource "google_compute_instance" "vm" {
     name            = "${var.name}-${var.zone}-${count.index}"
     machine_type    = "${var.vm_type}"
     tags            = "${var.tags}"
+    labels          = "${var.labels}"
     zone            = "${var.zone}"
 
     boot_disk {
@@ -17,8 +18,9 @@ resource "google_compute_instance" "vm" {
     network_interface {
         network = "default"
 
-        access_config = {
-            // Ephameral ip
-        }
+        # access_config = {
+        #     // Ephameral ip
+        # }
     }
+
 }

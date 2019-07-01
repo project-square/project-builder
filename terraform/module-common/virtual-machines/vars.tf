@@ -28,6 +28,10 @@ variable "tags" {
     description = "networking tags"
 }
 
+variable "labels" {
+    type = "map"
+}
+
 variable "metadata" {
     type = "map"
     description = "metadata of vm"
