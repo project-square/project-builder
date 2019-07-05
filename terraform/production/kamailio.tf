@@ -11,10 +11,34 @@ module "kamailio-europe-west4-a" {
     labels  = "${local.labels_kamailio}"
 }
 
+resource "google_compute_firewall" "fw-kamailio" {
+  name    = "fw-europe-west4-a-kamailio"
+  network = "${local.tags_kamailio_network}"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["5060"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["5060"]
+
+  }
+
+  target_tags   = ["${local.tags_kamailio_target_network}"]
+  source_ranges = ["0.0.0.0/0"]
+}
+
 locals {
     tags_kamailio = [
         "kamailio",
+        "${local.tags_kamailio_target_network}",
     ]
+
+    tags_kamailio_network = "default"
+
+    tags_kamailio_target_network = "kamailio"
 
     labels_kamailio = {
         service = "kamailio"
