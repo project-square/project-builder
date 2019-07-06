@@ -12,7 +12,7 @@ module "kamailio-europe-west4-a" {
 }
 
 resource "google_compute_firewall" "fw-kamailio" {
-  name    = "fw-europe-west4-a-kamailio"
+  name    = "fw-kamailio-allow-sip"
   network = "${local.tags_kamailio_network}"
 
   allow {
