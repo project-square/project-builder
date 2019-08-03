@@ -23,6 +23,12 @@ variable "vm_type" {
     default = "f1-micro"
 }
 
+variable "vm_disk_size" {
+    type        = "string"
+    description = "compute engine disk size"
+    default     = "30"
+}
+
 variable "tags" {
     type = "list"
     description = "networking tags"

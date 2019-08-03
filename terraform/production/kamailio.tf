@@ -1,3 +1,22 @@
+locals {
+    tags_kamailio = [
+        "kamailio",
+        "${local.tags_kamailio_target_network}",
+    ]
+
+    tags_kamailio_network = "default"
+
+    tags_kamailio_target_network = "kamailio"
+
+    labels_kamailio = {
+        service = "kamailio"
+    }
+
+    region = "europe-west4"
+
+    ports = "5060"
+}
+
 module "kamailio-europe-west4-a" {
     source      = "../module-common/virtual-machines"
 
@@ -28,19 +47,4 @@ resource "google_compute_firewall" "fw-kamailio" {
 
   target_tags   = ["${local.tags_kamailio_target_network}"]
   source_ranges = ["0.0.0.0/0"]
-}
-
-locals {
-    tags_kamailio = [
-        "kamailio",
-        "${local.tags_kamailio_target_network}",
-    ]
-
-    tags_kamailio_network = "default"
-
-    tags_kamailio_target_network = "kamailio"
-
-    labels_kamailio = {
-        service = "kamailio"
-    }
 }
