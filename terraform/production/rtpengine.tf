@@ -5,7 +5,7 @@ module "rtpengine-europe-west4-a" {
     vms_count   = "2"
     region      = "europe-west4"
     zone        = "europe-west4-a"
-    vm_type     = "n1-standard-1"
+    vm_type     = "f1-micro"
 
     tags    = "${local.tags_rtpengine}"
     labels  = "${local.labels_rtpengine}"

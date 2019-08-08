@@ -1,6 +1,6 @@
 // configure the google cloud provider
 provider "google" {
-    credentials = "/home/pchero/k8s-test-01-eadb65cfe297.json"
-    project = "k8s-test-01-239423"
+    credentials = "/home/pchero/project-square-9f7617ff7fab.json"
+    project = "project-square"
     region = "eu-west4"
 }
